@@ -10,8 +10,8 @@ import { signOut } from 'firebase/auth';
 import { auth } from './firebase-config';
 
 function App() {
-
-  const [isAuth, setIsAuth] = useState(false);
+  // Will utilize localstorage to see if a user is logged in or not
+  const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth'));
 
   // Resets state, clears local storage, and redirects user to login
   const signUserOut = () => {
@@ -28,16 +28,24 @@ function App() {
       {/* You are not allowed to use anything from the react-router-dom outside of the <Router> */}
       <nav>
         <Link to='/'> Home </Link>
-        <Link to='/createpost'> CreatePost </Link>
+
         {/* Will only show the Login link on the Navbar if user is not logged-in */}
-        {!isAuth ? <Link to='/login'> Login </Link> : <button onClick={signUserOut}> Log Out </button>}
+        {!isAuth ? (
+          <Link to='/login'> Login </Link> 
+        ) : (
+          // Will only show Create Post link on Navbar is user is logged-in
+          <>
+            <Link to='/createpost'>Create Post</Link>
+            <button onClick={signUserOut}> Log Out </button>
+          </> 
+        )}
       </nav>
 
       {/* Define structure of the Routes */}
       <Routes>
         {/* Home page route */}
-        <Route path='/' element={<Home />} />
-        <Route path='/createpost' element={<CreatePost />} />
+        <Route path='/' element={<Home isAuth={isAuth} />} />
+        <Route path='/createpost' element={<CreatePost isAuth={isAuth} />} />
         <Route path='/login' element={<Login setIsAuth={setIsAuth} />} />
       </Routes>
     </Router>
