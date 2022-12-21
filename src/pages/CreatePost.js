@@ -29,6 +29,8 @@ function CreatePost({ isAuth }) {
         if (!isAuth) {
             navigate('/login')
         }
+
+        console.log('Create Post Inefficiency')
     }, [])
 
 

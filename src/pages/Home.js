@@ -1,4 +1,5 @@
 // Use 'rfce' snippet to quickly create React template
+import './Home.css'
 import React, { useEffect, useState } from 'react';
 import { collection, deleteDoc, getDocs, doc } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
@@ -43,22 +44,22 @@ function Home({ isAuth }) {
                             <div className='title'>
                                 <h1>{post.title}</h1>
                             </div>
-                            <div className='deletePost'>
-                                {/* Trash can through unicode */}
-                                {isAuth && post.author.id === auth.currentUser.uid && (
-                                    <button onClick={() => {
-                                        deletePost(post.id)
-                                    }}
-                                    >
-                                        &#128465;
-                                    </button>
-                                )}
-                            </div>
                         </div>
                         <div className='postTextContainer'>
                             {post.postText}
                         </div>
                         <h3>@{post.author.name}</h3>
+                        <div className='deletePost'>
+                            {/* Trash can through unicode */}
+                            {isAuth && post.author.id === auth.currentUser.uid && (
+                                <button onClick={() => {
+                                    deletePost(post.id)
+                                }}
+                                >
+                                    <span>&#128465;</span>
+                                </button>
+                            )}
+                        </div>
                     </div>
                 )
             })}
