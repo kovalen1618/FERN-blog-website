@@ -36,6 +36,8 @@ function Home({ isAuth }) {
 
 
     return (
+        /* the class keyword is a reserved word in JavaScript, and using it as an attribute name would result in a syntax error. 
+        To avoid this issue, React uses the className attribute as a way to specify the CSS class of an element. */
         <div className='homePage'>
             {postLists.map((post) => {
                 return (
@@ -43,6 +45,7 @@ function Home({ isAuth }) {
                         <div className='postHeader'>
                             <div className='title'>
                                 <h1>{post.title}</h1>
+                                <hr></hr>
                             </div>
                         </div>
                         <div className='postTextContainer'>
@@ -56,7 +59,8 @@ function Home({ isAuth }) {
                                     deletePost(post.id)
                                 }}
                                 >
-                                    <span>&#128465;</span>
+                                    <span id="trashCan">&#128465;</span>
+                                    <span id="deleteText">Delete</span>
                                 </button>
                             )}
                         </div>
